@@ -1,0 +1,21 @@
+body {
+    background-color: lightblue;
+}
+
+.crystal-image {
+    height: 200px;
+    width: 200px;
+    border-style: solid;
+    border-color: darkblue;
+}
+
+#container {
+    margin: 0 auto;
+    background-color: yellow;
+    text-align: center;
+    /* padding-top: 10px; */
+    color: darkblue;
+    padding-bottom: 10px;
+    border-style: solid;
+    border-color: darkblue;
+}
