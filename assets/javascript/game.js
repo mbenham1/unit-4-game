@@ -1,3 +1,4 @@
+// Global
 var targetFloor = 19;
 var targetCeiling = 120;
 var targetNumber;
@@ -15,33 +16,33 @@ gemImage[1] = "assets/images/crystal2.jpg";
 gemImage[2] = "assets/images/crystal3.jpeg";
 gemImage[3] = "assets/images/crystal4.jpeg";
 
+// Start
+var resetFunction = function () {
+    counter = 0; 
+    $("#crystals").empty();
+    $(".crystal-image").remove();
+    $("img").remove();
+    $("#current-count").html(counter);
+    $("#spacebar").html("Press Spacebar to Start Over");
 
 
-targetNumber = Math.floor(Math.random() * (targetCeiling - targetFloor + 1)) + targetFloor;
+    targetNumber = Math.floor(Math.random() * (targetCeiling - targetFloor + 1)) + targetFloor;
 
-$("#number-to-guess").html(targetNumber)
+    $("#number-to-guess").html(targetNumber)
 
-for (var i = 0; i < 4; i++) {
-    gemValues[i] = Math.floor(Math.random() * (gemCeiling - gemFloor + 1)) + gemFloor;
+    for (var i = 0; i < 4; i++) {
+        gemValues[i] = Math.floor(Math.random() * (gemCeiling - gemFloor + 1)) + gemFloor;
 
-    var imageCrystal = $("<img>");
-    imageCrystal.addClass("crystal-image");
-    imageCrystal.attr("src", gemImage[i]);
-    imageCrystal.attr("data-crystalvalue", gemValues[i]);
+        var imageCrystal = $("<img>");
+        imageCrystal.addClass("crystal-image");
+        imageCrystal.attr("src", gemImage[i]);
+        imageCrystal.attr("data-crystalvalue", gemValues[i]);
 
-    $("#crystals").append(imageCrystal);
-}
-
-var resetFunction = function(){
-    document.onkeyup = function () {
-        var spaceBar = event.charCode || event.keyCode;
-        if (spaceBar === 32) {
-            counter = 0; 
-            gameStart();
-        }
+        $("#crystals").append(imageCrystal);
     }
-}
 
+
+// Game
 $(".crystal-image").on("click", function () {
 
     var crystalValue = ($(this).attr("data-crystalvalue"));
@@ -51,21 +52,28 @@ $(".crystal-image").on("click", function () {
 
 
     if (counter === targetNumber) {
-        //   alert("You win! Press space to restart");
         wins++;
         $("#wins").html(wins);
-        $("#spacebar").html("Win! Press Spacebar to Reset");
+        $("#spacebar").html("Win!");
+        alert("Win! Press OK to play again")
         resetFunction();
-
     }
 
 
     else if (counter >= targetNumber) {
-        //   alert("You lose! Press space to restart");
         losses++;
         $("#losses").html(losses);
-        $("#spacebar").html("Lose! Press Spacebar to Reset")
+        $("#spacebar").html("Over!");
+        alert("You've gone over! Press OK to play again")
         resetFunction();
     }
 
 });
+}
+
+document.onkeyup = function () {
+    var spaceBar = event.charCode || event.keyCode;
+    if (spaceBar === 32) {
+        resetFunction();
+    }
+}
